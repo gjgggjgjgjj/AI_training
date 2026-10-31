@@ -93,7 +93,6 @@ class Vizuals:
             5
         )
 
-
     #will return list of x and y cooardinate of center x and y based on move
     #move can only be number 0-8
     def boardTranslator(move: int) ->tuple:
@@ -120,6 +119,7 @@ class Vizuals:
 
     def updateGrid(self, ticBoard:TicTacToe):
         board = ticBoard.getBoard()
+
 
 #for testing below
 if __name__ == "__main__":

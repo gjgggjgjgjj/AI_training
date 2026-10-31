@@ -28,7 +28,7 @@ def playerTurn(player):
     pass
 
 
-def gameLoop(vizuals:Vizuals, render=False):
+def gameLoop(vizuals:Vizuals, ticrender=False):
     running = True
     while running:
         if render:
