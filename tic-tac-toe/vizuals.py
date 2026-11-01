@@ -95,7 +95,7 @@ class Vizuals:
 
     #will return list of x and y cooardinate of center x and y based on move
     #move can only be number 0-8
-    def boardTranslator(move: int) ->tuple:
+    def boardTranslator(self, move: int) ->tuple:
         if (move == 0):
             return (150,150)
         if (move == 1):
@@ -119,6 +119,19 @@ class Vizuals:
 
     def updateGrid(self, ticBoard:TicTacToe):
         board = ticBoard.getBoard()
+
+        for i in range(len(board)):
+            coordinates = self.boardTranslator(i)
+            if (board[i] == 0):
+                continue
+            elif (board[i] == 1):
+                self.draw_o(coordinates[0], coordinates[1])
+            elif (board[i] == -1):
+                self.draw_x(coordinates[0], coordinates[1])
+            else:
+                raise Exception("update grid move out of range")
+
+
 
 
 #for testing below

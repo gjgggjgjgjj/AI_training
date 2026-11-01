@@ -17,9 +17,16 @@ class TicTacToe:
             [0,4,8],
             [2,4,6]
         ]
+        self.whosTurn = 1
 
     def getBoard(self):
         return self.board
+
+    def changeTurn(self):
+        self.whosTurn *= -1
+
+    def getWhosTurn(self):
+        return self.whosTurn
 
     def resetBoard(self):
         for i in range(len(self.board)):
@@ -49,6 +56,15 @@ class TicTacToe:
             return False
         return retList
 
+    def gameTie(self):
+        if (self.getLegalMoves() == False):
+            return True
+        return False
+
+    def gameOver(self):
+        if (self.playerWon(1) or self.playerWon(-1) or self.gameTie()):
+            return True
+
     #player is 1 or -1
     #will only allow if the move is legal otherwise error
     def makeMove(self,player,pos):
@@ -56,7 +72,7 @@ class TicTacToe:
             raise Exception("Player is not 1 or -1: ", player)
         #pos can be 0-8   (so 9 places)
         if (self.board[pos] != 0):
-            raise Exception("Illegal move made apptempted for player", player, "tried to play on", pos, "item:",self.board[pos])
+            raise Exception("Illegal move made attempted for player", player, "tried to play on", pos, "item:",self.board[pos])
         self.board[pos] = int(player)
 
     #returns string
