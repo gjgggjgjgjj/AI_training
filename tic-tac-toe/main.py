@@ -1,4 +1,4 @@
-# import torch
+import torch
 from game import TicTacToe
 from vizuals import Vizuals
 from ai import AI
@@ -36,30 +36,40 @@ def gameLoop(vizuals:Vizuals, board:TicTacToe, ai_O:AI, ai_X:AI,  ticRender=Fals
     board.resetBoard()
     while running:
         if ticRender:
-            time.sleep(0.5)
+            time.sleep(0.125)
             for event in vizuals.pyEvent():
                 if event.type == pygame.QUIT:
                     running = False
+            vizuals.clear()
             vizuals.draw_grid()
             vizuals.updateGrid(board)
             vizuals.update()
             if (board.gameOver()):
-                time.sleep(2)
+                time.sleep(.5)
                 vizuals.clear()
+            # print("=================")
+            # board.printBoard()
+
 
 
 
         if (board.gameOver()):
             board.resetBoard()
+            board.changeTurn(1)
+            continue
 
-
-        #moves will happen here
+        #to see if moves are even possible
         legalMovesListLen = len(board.getLegalMoves())
-        if (board.getWhosTurn() == 1 and legalMovesListLen > 0):
+        if (legalMovesListLen == 0):
+            board.resetBoard()
+            continue
+
+        #moves happen here
+        if (board.getWhosTurn() == 1): 
             turn = ai_O.makeRandMove(board.getLegalMoves())
             
         #it's negative one then
-        elif (legalMovesListLen > 0):
+        elif (board.getWhosTurn() == -1): 
                 turn = ai_X.makeRandMove(board.getLegalMoves())
 
         #change whos turn for next time
@@ -79,8 +89,8 @@ def main():
     vizuals = Vizuals()
     ai_X = AI()
     ai_Y = AI()
-    # print(torch.__version__)
-    # print(torch.cuda.is_available())  # Returns True if you have a usable NVIDIA GPU
+    print(torch.__version__)
+    print(torch.cuda.is_available())  # Returns True if you have a usable NVIDIA GPU
     ticTest = testTicBoard()
     gameLoop(vizuals, ticTest, ai_X, ai_Y, True)
     return

@@ -22,8 +22,13 @@ class TicTacToe:
     def getBoard(self):
         return self.board
 
-    def changeTurn(self):
-        self.whosTurn *= -1
+    def changeTurn(self, change=0):
+        if change == 0:
+            self.whosTurn *= -1
+            return
+        else:
+            self.whosTurn = change
+
 
     def getWhosTurn(self):
         return self.whosTurn
